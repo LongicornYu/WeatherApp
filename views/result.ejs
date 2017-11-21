@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather Lookup</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="container">
+        <% if(weatherResult !== null){ %>
+          <h1><%= weatherResult.name %></h1>
+          <ul>
+             <li>Overall: <%= weatherResult.weather[0].main%> - <%= weatherResult.weather[0].description %></li>
+             <li>Current Temperature: <%= Math.ceil(weatherResult.main.temp-273.15) %> &#8451;</li>
+             <li>Max Temperature: <%= Math.ceil(weatherResult.main.temp_max-273.15) %> &#8451;</li>
+             <li>Min Temperature: <%= Math.ceil(weatherResult.main.temp_min-273.15) %> &#8451;</li>
+             <li>Humidity: <%= weatherResult.main.humidity %></li>
+             <li>Pressure: <%= weatherResult.main.pressure %></li>
+             <li>Wind Speed: <%= weatherResult.wind.speed %> m/s</li>
+             <li>Wind Degree: <%= weatherResult.wind.deg %> degrees</li>
+             <li>Sunrise: <%= weatherResult.sys.sunrise %></li>
+             <li>Sunset: <%= weatherResult.sys.sunset %></li>
+          </ul>
+        <% } %>
+
+        <% if(error !== null){ %>
+          <p><%= error %></p>
+        <% } %>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather Lookup</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFPJkvoYqfBmBGsrBq1KksDcIFWryd7rA&sensor=false&libraries=places&language=en"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+
+    <script>
+      function lookUpAddress()
+      {
+        $.ajax({
+            url: "https://geoip-db.com/jsonp",
+            jsonpCallback: "callback",
+            dataType: "jsonp",
+            success: function( location , ) {
+
+                $('#city').val(location.city +", " + location.country_name);
+            }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target=".navbar-collapse">
+                  <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                      class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">test</a>
+          </div>
+          <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  <li id="home"><a href="/">Home</a></li>
+                  <li id="about"><a href="/about">About</a></li>
+              </ul>
+          </div>
+          <!--/.navbar-collapse -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        &nbsp;
+      </div>
+      <div class="col-md-6">
+        <form action="/" method="post">
+          <div class="row">
+              <input name="city" type="text" class="ghost-input" id="city" placeholder="Enter a City" required>
+              <input type="image" src="/images/world-map-icon.png" class="ghost-gps" onclick="lookUpAddress(); return false;"/>
+          </div>
+          <div class="row">
+            <input type="submit" class="ghost-button" value="Get Weather">
+          </div>
+        </form>
+        <script>
+          var options = {
+            types: ['(cities)']
+          };
+          var input = document.getElementById('city');
+          var autocomplete = new google.maps.places.Autocomplete(input, options);
+        </script>
+      </div>
+      <div class="col-md-3">
+        &nbsp;
+      </div>
+    </div>
+  </body>
+  <nav class="navbar navbar-default  navbar-fixed-bottom" role="navigation">
+      <div class="container text-center">
+          <p class="navbar-text col-md-12 col-sm-12 col-xs-12">© Longicorn Technologies 2017</p>
+      </div>
+  </nav>
+</html>
