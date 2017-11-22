@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather Lookup</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="container">
+        <% if(weatherResult !== null){ %>
+          <h1><%= weatherResult.city.name %></h1>
+          <h2> 5 days forecast:</h1>
+          <table>
+            <thead>
+              <% for (var i = 0;i < weatherResult.cnt; i++) { %>
+                <th><%= new Date(weatherResult.list[i].dt * 1000) %></th>
+              <% } %>
+            </thead>  
+            <tbody>
+              <tr>
+                <% for (var i = 0;i < weatherResult.cnt; i++) { %>
+                      <td>
+                         <%= weatherResult.list[i].weather[0].main%> - <%= weatherResult.list[i].weather[0].description %><br/>
+                         <%= weatherResult.list[i].main.temp %> &#8451;<br/>
+                         Max <%= weatherResult.list[i].main.temp_max %> &#8451; - Min <%= weatherResult.list[i].main.temp_min %> &#8451;<br/>
+                       </td>
+                <% } %>
+               </tr>
+            </tbody>
+          </table>
+        <% } %>
+        <% if(error !== null){ %>
+          <p><%= error %></p>
+        <% } %>
+
+    </div>
+  </body>
+</html>

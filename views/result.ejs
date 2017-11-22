@@ -10,17 +10,18 @@
     <div class="container">
         <% if(weatherResult !== null){ %>
           <h1><%= weatherResult.name %></h1>
+          <h2><%= new Date() %></h2>
           <ul>
              <li>Overall: <%= weatherResult.weather[0].main%> - <%= weatherResult.weather[0].description %></li>
-             <li>Current Temperature: <%= Math.ceil(weatherResult.main.temp-273.15) %> &#8451;</li>
-             <li>Max Temperature: <%= Math.ceil(weatherResult.main.temp_max-273.15) %> &#8451;</li>
-             <li>Min Temperature: <%= Math.ceil(weatherResult.main.temp_min-273.15) %> &#8451;</li>
+             <li>Current Temperature: <%= weatherResult.main.temp %> &#8451;</li>
+             <li>Max Temperature: <%= weatherResult.main.temp_max %> &#8451;</li>
+             <li>Min Temperature: <%= weatherResult.main.temp_min %> &#8451;</li>
              <li>Humidity: <%= weatherResult.main.humidity %></li>
              <li>Pressure: <%= weatherResult.main.pressure %></li>
              <li>Wind Speed: <%= weatherResult.wind.speed %> m/s</li>
              <li>Wind Degree: <%= weatherResult.wind.deg %> degrees</li>
-             <li>Sunrise: <%= weatherResult.sys.sunrise %></li>
-             <li>Sunset: <%= weatherResult.sys.sunset %></li>
+             <li>Sunrise: <%= new Date(weatherResult.sys.sunrise * 1000) %></li>
+             <li>Sunset: <%= new Date(weatherResult.sys.sunset * 1000); %></li>
           </ul>
         <% } %>
 

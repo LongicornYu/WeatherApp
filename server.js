@@ -20,7 +20,7 @@ app.post('/', function (req, res) {
     searchText = array[0];
   }
   console.log(searchText);
-  let url = `http://api.openweathermap.org/data/2.5/weather?q=${searchText}&units=imperial&appid=${apiKey}`
+  let url = `http://api.openweathermap.org/data/2.5/weather?q=${searchText}&units=metric&appid=${apiKey}`
   console.log(url);
   request(url, function (err, response, body) {
     if(err){
@@ -38,6 +38,38 @@ app.post('/', function (req, res) {
 
 app.get('/', function (req, res) {
   res.render('index', {weather: null, error: null});
+})
+
+app.post('/fiveDaysForecast', function (req, res) {
+  let city = req.body.city;
+  var array = city.split(",");
+  var searchText = "";
+  if (array.length >=2)
+  {
+    searchText = array[0] + ',' +array[array.length-1];
+  }
+  else {
+    searchText = array[0];
+  }
+  console.log(searchText);
+  let url = `http://api.openweathermap.org/data/2.5/forecast?q=${searchText}&units=metric&appid=${apiKey}`
+  console.log(url);
+  request(url, function (err, response, body) {
+    if(err){
+      res.render('forecastResult', {weatherResult: null, error: 'Error, please try again'});
+    } else {
+      let weatherResult = JSON.parse(body)
+      if(weatherResult.list == undefined){
+        res.render('forecastResult', {weatherResult: null, error: 'Error, please try again'});
+      } else {
+        res.render('forecastResult', {weatherResult: weatherResult, error: null});
+      }
+    }
+  });
+})
+
+app.get('/fiveDaysForecast', function (req, res) {
+  res.render('fiveDaysForecast', {weather: null, error: null});
 })
 
 app.listen(8888, function () {

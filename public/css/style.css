@@ -8,9 +8,14 @@ body {
   height: auto;
   margin: 0 auto;
   font-family: 'Open Sans', sans-serif;
-  background-image: url("../images/search-page-background.jpg");                    /* <------ */
+  background-image: url("../images/search-page-background2.jpg");                    /* <------ */
   background-repeat:no-repeat;
   background-size: cover;
+}
+
+
+.container {
+  color:white;
 }
 /*.container {
   width: 600px;
@@ -74,6 +79,7 @@ fieldset {
   padding:10px 30px;
   width: 100%;
   min-width: 350px;
+  color: white;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
@@ -85,4 +91,26 @@ fieldset {
 }
 p {
   color: #E64A19;
+}
+
+
+/*For forecast result page*/
+table{
+    margin:1em;
+    border-collapse: collapse;
+}
+
+tr:nth-of-type(odd) {
+    background: gray;
+}
+
+th{
+    background: #333;
+    color: white;
+}
+
+td,th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
 }
