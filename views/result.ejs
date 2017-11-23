@@ -5,30 +5,74 @@
     <title>Weather Lookup</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
   </head>
   <body>
+     <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+          <image src="./images/siteLogo.png" style="height:50px;width:50px;float:left;margin:0px 20px 0px 0px"></image>
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target=".navbar-collapse">
+                  <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                      class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" style="color:white" href="/">Current Weather</a>
+              <a class="navbar-brand" href="/fiveDaysForecast">5 Days Forecast</a>
+              <a class="navbar-brand"  href="/UV">Current UV Level</a>
+          </div>
+         <!--  <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  <li id="home"><a href="/">Home</a></li>
+                  <li id="about"><a href="/about">About</a></li>
+              </ul>
+          </div> -->
+          <!--/.navbar-collapse -->
+      </div>
+    </div>
     <div class="container">
-        <% if(weatherResult !== null){ %>
-          <h1><%= weatherResult.name %></h1>
-          <h2><%= new Date() %></h2>
-          <ul>
-             <li>Overall: <%= weatherResult.weather[0].main%> - <%= weatherResult.weather[0].description %></li>
-             <li>Current Temperature: <%= weatherResult.main.temp %> &#8451;</li>
-             <li>Max Temperature: <%= weatherResult.main.temp_max %> &#8451;</li>
-             <li>Min Temperature: <%= weatherResult.main.temp_min %> &#8451;</li>
-             <li>Humidity: <%= weatherResult.main.humidity %></li>
-             <li>Pressure: <%= weatherResult.main.pressure %></li>
-             <li>Wind Speed: <%= weatherResult.wind.speed %> m/s</li>
-             <li>Wind Degree: <%= weatherResult.wind.deg %> degrees</li>
-             <li>Sunrise: <%= new Date(weatherResult.sys.sunrise * 1000) %></li>
-             <li>Sunset: <%= new Date(weatherResult.sys.sunset * 1000); %></li>
-          </ul>
-        <% } %>
+      <div class="row">&nbsp;</div>
+      <div class="row">&nbsp;</div>
+      <div class="row">
+      <div class="col-md-2">
+        &nbsp;
+      </div>
+      <div class="col-md-8">
+          <% if(weatherResult !== null){ %>
+            <h1><%= weatherResult.name %></h1>
+            <h2><%= moment().format("LLLL")%></h2>
+            <image class="weatherConditionClass" alt="<%= weatherResult.weather[0].main%> - <%= weatherResult.weather[0].description %>" src="/images/weatherconditions/<%=weatherResult.weather[0].icon%>.png" />
+            <div style="float:left; display: block;">
+              <ul>
+                 <li>Overall: <%= weatherResult.weather[0].main%> - <%= weatherResult.weather[0].description %></li>
+                 <li>Current Temperature: <%= weatherResult.main.temp %> &#8451;</li>
+                 <li>Max Temperature: <%= weatherResult.main.temp_max %> &#8451;</li>
+                 <li>Min Temperature: <%= weatherResult.main.temp_min %> &#8451;</li>
+                 <li>Humidity: <%= weatherResult.main.humidity %></li>
+                 <li>Pressure: <%= weatherResult.main.pressure %></li>
+                 <li>Wind Speed: <%= weatherResult.wind.speed %> m/s</li>
+                 <li>Wind Degree: <%= weatherResult.wind.deg %> degrees</li>
+                 <li>Sunrise: <%= new Date(weatherResult.sys.sunrise * 1000) %></li>
+                 <li>Sunset: <%= new Date(weatherResult.sys.sunset * 1000); %></li>
+              </ul>
+            </div>
+          <% } %>
 
-        <% if(error !== null){ %>
-          <p><%= error %></p>
-        <% } %>
-
+          <% if(error !== null){ %>
+            <p><%= error %></p>
+          <% } %>
+      </div>
+      <div class="col-md-2">
+        &nbsp;
+      </div>
+      </div>
     </div>
   </body>
+  <nav class="navbar navbar-inverse  navbar-fixed-bottom" role="navigation">
+      <div class="container text-center">
+          <p class="col-md-12 col-sm-12 col-xs-12" style="color:white; background:none; font-size:10px">© Longicorn Technologies 2017</p>
+      </div>
+  </nav>
 </html>

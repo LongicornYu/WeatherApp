@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather Lookup</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFPJkvoYqfBmBGsrBq1KksDcIFWryd7rA&sensor=false&libraries=places&language=en"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+
+    <script>
+      function lookUpCoordinates()
+      {
+        $.ajax({
+            url: "https://geoip-db.com/jsonp",
+            jsonpCallback: "callback",
+            dataType: "jsonp",
+            success: function( location , ) {
+
+                $('#coordinate').val(location.latitude +"," + location.longitude);
+            }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+          <image src="./images/siteLogo.png" style="height:50px;width:50px;float:left;margin:0px 20px 0px 0px"></image>
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target=".navbar-collapse">
+                  <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                      class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Current Weather</a>
+              <a class="navbar-brand" href="/fiveDaysForecast">5 Days Forecast</a>
+              <a class="navbar-brand" style="color:white" href="/UV">Current UV Level</a>
+          </div>
+         <!--  <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  <li id="home"><a href="/">Home</a></li>
+                  <li id="about"><a href="/about">About</a></li>
+              </ul>
+          </div> -->
+          <!--/.navbar-collapse -->
+      </div>
+    </div>
+    <div class="row placeholderrow">
+              &nbsp;
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        &nbsp;
+      </div>
+      <div class="col-md-6">
+        <form action="/UV" method="post">
+          <div class="row">
+              <input name="coordinate" type="text"  class="ghost-input" id="coordinate" placeholder="Enter an coordinate " >
+              <input type="image" src="/images/world-map-icon.png" class="ghost-gps"
+               onclick="lookUpCoordinates(); return false;"/>
+          </div>
+          <div class="row">
+            <h3 class="alignCenterText" style="color: gray"> OR </h3>
+          </div>
+          <div class="row">
+              <input name="address" type="text" class="ghost-input-full" id="address" placeholder="Enter an address " >
+          </div>
+          <div class="row">
+            <input type="submit" class="ghost-button" value="Get Weather">
+          </div>
+        </form>
+      </div>
+      <div class="col-md-3">
+        &nbsp;
+      </div>
+    </div>
+  </body>
+  <nav class="navbar navbar-inverse  navbar-fixed-bottom" role="navigation">
+      <div class="container text-center">
+          <p class="col-md-12 col-sm-12 col-xs-12" style="color:white; background:none; font-size:10px">© Longicorn Technologies 2017</p>
+      </div>
+  </nav>
+</html>

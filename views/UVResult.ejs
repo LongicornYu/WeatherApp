@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather Lookup</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/uvGraph.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+    <script>
+      $(document).ready(function() {
+          var uvLevelElement = document.getElementById("uvLevel");
+          var uvLevel = uvLevelElement.value * 1.0;
+          if(uvLevel <= 2)
+          {
+            var matchedLevel = document.getElementById("lowLevel");
+            $(matchedLevel).addClass("selectedBar");
+          }
+          else if (uvLevel >= 3 && uvLevel <=5)
+          {
+            var matchedLevel = document.getElementById("moderateLevel");
+            $(matchedLevel).addClass("selectedBar");
+          }
+          else if (uvLevel >=6 && uvLevel <=7)
+          {
+            var matchedLevel = document.getElementById("highLevel");
+            $(matchedLevel).addClass("selectedBar");
+          }
+          else if (uvLevel >=8 && uvLevel <=10)
+          {
+            var matchedLevel = document.getElementById("veryHighLevel");
+            $(matchedLevel).addClass("selectedBar");
+          }
+          else if (uvLevel >=11)
+          {
+            var matchedLevel = document.getElementById("extremeLevel");
+            $(matchedLevel).addClass("selectedBar");
+          }
+        });
+    </script>
+  </head>
+  <body>
+     <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+          <image src="./images/siteLogo.png" style="height:50px;width:50px;float:left;margin:0px 20px 0px 0px"></image>
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target=".navbar-collapse">
+                  <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                      class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand"  href="/">Current Weather</a>
+              <a class="navbar-brand" href="/fiveDaysForecast">5 Days Forecast</a>
+              <a class="navbar-brand" style="color:white" href="/UV">Current UV Level</a>
+          </div>
+         <!--  <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  <li id="home"><a href="/">Home</a></li>
+                  <li id="about"><a href="/about">About</a></li>
+              </ul>
+          </div> -->
+          <!--/.navbar-collapse -->
+      </div>
+    </div>
+    <div class="container">
+      <div class="row placeholderrow">
+                &nbsp;
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          &nbsp;
+        </div>
+        <div class="col-md-8">
+
+            <% if(weatherResult !== null){ %>
+              <input id="uvLevel" name="prodId" type="hidden" value="<%=weatherResult.value%>">
+              <div>Current UV Level: <%=weatherResult.value%></div>
+            <% } %>
+
+            <% if(error !== null){ %>
+              <p><%= error %></p>
+            <% } %>
+
+            <div id="content">
+              <h2>UV Index</h2>
+              <ul id="bar">
+                <li id="extremeLevel">
+                  <div class="top">
+                    <img src="images/uvlevels/extremes.jpg" alt="Extreme" />
+                  </div>
+                  <div class="bottom">
+                    <div class="infobox">
+                      <h3>11+ Extreme</h3>
+                    </div>
+                  </div>
+                </li>
+                <li id="veryHighLevel">
+                  <div class="top">
+                    <img src="images/uvlevels/veryhigh.jpg" alt="Very High" />
+                  </div>
+                  <div class="bottom">
+                    <div class="infobox">
+                      <h3>8-10 Very High</h3>
+                    </div>
+                  </div>
+                </li>
+                <li id="highLevel">
+                  <div class="top">
+                    <img src="images/uvlevels/high.jpg" alt="High" />
+                  </div>
+                  <div class="bottom">
+                    <div class="infobox">
+                      <h3>6-7 High</h3>
+                    </div>
+                  </div>
+                </li>
+                <li id="moderateLevel">
+                  <div class="top">
+                    <img src="images/uvlevels/moderate.jpg" alt="Moderate" />
+                  </div>
+                  <div class="bottom">
+                    <div class="infobox">
+                      <h3>3-5 Moderate</h3>
+                    </div>
+                  </div>
+                </li>
+                <li id="lowLevel">
+                  <div class="top">
+                    <img src="images/uvlevels/low.jpg" alt="Low" />
+                  </div>
+                  <div class="bottom">
+                    <div class="infobox">
+                      <h3>0-2 Low</h3>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+        </div>
+        <div class="col-md-2">
+          &nbsp;
+        </div>
+      </div>
+      <div class="row placeholderrow">
+                &nbsp;
+      </div>
+      </div>
+    </div>
+  </body>
+  <nav class="navbar navbar-inverse  navbar-fixed-bottom" role="navigation">
+      <div class="container text-center">
+          <p class="col-md-12 col-sm-12 col-xs-12" style="color:white; background:none; font-size:10px">© Longicorn Technologies 2017</p>
+      </div>
+  </nav>
+</html>

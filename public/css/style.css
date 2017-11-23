@@ -3,6 +3,14 @@
   https://codepen.io/official_naveen/pen/rgknI
 */
 
+.alignCenterText {
+  text-align: center;
+}
+
+.placeholderrow {
+  height: 150px;
+}
+
 body {
   width: auto;
   height: auto;
@@ -40,19 +48,28 @@ fieldset {
 }*/
 
 .ghost-gps {
-    padding: 10px 15px;
-    margin: 40% 0px 0px 0px;
-    height: 80px;
-    weight: 10%;
+    height: 60px;
+    width: : 10%;
     float: left;
     display: inline;
+    margin: 10px 0px 10px 0px;
 }
 
-.ghost-input, p {
+.ghost-input, p
+{
+ width: 80%;
+}
+
+.ghost-input-full, p
+{
+ width: 100%;
+}
+
+
+.ghost-input, .ghost-input-full, p {
   display: inline;
-  float: :left;
+  float:right;
   font-weight:300;
-  width: 80%;
   font-size: 25px;
   border:0px;
   outline: none;
@@ -63,7 +80,7 @@ fieldset {
   background: #fff;
   font-family: Open Sans,Verdana;
   padding: 10px 15px;
-  margin: 40% 0px 0px 0px;
+  margin: 10px 0px 10px 0px;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
@@ -79,7 +96,8 @@ fieldset {
   padding:10px 30px;
   width: 100%;
   min-width: 350px;
-  color: white;
+  color: black;
+  margin: 10px 0px 10px 0px;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
@@ -98,6 +116,9 @@ p {
 table{
     margin:1em;
     border-collapse: collapse;
+    width: 100%;
+    position: absolute; 
+
 }
 
 tr:nth-of-type(odd) {
@@ -113,4 +134,90 @@ td,th {
     padding: 6px;
     border: 1px solid #ccc;
     text-align: left;
+    height: 100px;
+}
+
+.weatherConditionClass{
+  display: inline-block;
+  float: left;
+}
+
+
+
+.nextbutton, .prevbutton {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+
+
+.nextbutton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.nextbutton span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.nextbutton:hover span {
+  padding-right: 25px;
+}
+
+.nextbutton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+.prevbutton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.prevbutton span:after {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 5x;
+  transition: 0.5s;
+}
+
+.prevbutton:hover span {
+  padding-left: 25px;
+}
+
+.prevbutton:hover span:after {
+  opacity: 1;
+  left: 0;
+}
+
+.prevbutton:disabled,
+.prevbutton[disabled]
+.nextbutton:disabled,
+.nextbutton[disabled]
+{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }

@@ -5,35 +5,151 @@
     <title>Weather Lookup</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var tableElements = [];
+        var shownIndex = 0;
+        tableElements.push(document.getElementById("tbforecast1"));
+        tableElements.push(document.getElementById("tbforecast2"));
+        tableElements.push(document.getElementById("tbforecast3"));
+        tableElements.push(document.getElementById("tbforecast4"));
+        tableElements.push(document.getElementById("tbforecast5"));
+
+        var btnPrev = document.getElementById("prevbutton");
+        var btnNext = document.getElementById("nextbutton");
+
+        $(btnPrev).attr('disabled', true);
+        /*btnTabA.onclick = function () {
+            $(tableElements[1]).hide('slide', {direction: 'left'}, 140);
+            $(tableElements[0]).show('slide', {direction: 'right'}, 140);
+        }
+        btnTabB.onclick = function () {
+            $(tableElements[0]).hide('slide', {direction: 'left'}, 140);
+            $(tableElements[1]).show('slide', {direction: 'right'}, 140);
+        }*/
+
+        $(btnNext).click(function (e) {
+          e.stopPropagation();
+          $(tableElements[shownIndex]).hide();
+          //$(tableElements[shownIndex + 1]).show('slide', {direction: 'left'}, 1400);
+          $(tableElements[shownIndex + 1]).fadeIn();
+          shownIndex = shownIndex + 1;
+
+          $(btnPrev).removeAttr('disabled');
+
+          if (shownIndex == 4)
+          {
+            $(btnNext).attr('disabled', true);
+          }
+
+        });
+
+        $(btnPrev).click(function (e) {
+          e.stopPropagation();
+          $(tableElements[shownIndex]).hide();
+          $(tableElements[shownIndex - 1]).fadeIn();
+          shownIndex = shownIndex - 1;
+
+          if (shownIndex ==0)
+          {
+            $(btnPrev).attr('disabled', true);
+          }
+          else if (shownIndex !=4)
+          {
+            $(btnNext).removeAttr('disabled');
+          }
+
+        });
+
+      })
+
+    </script>
   </head>
   <body>
-    <div class="container">
-        <% if(weatherResult !== null){ %>
-          <h1><%= weatherResult.city.name %></h1>
-          <h2> 5 days forecast:</h1>
-          <table>
-            <thead>
-              <% for (var i = 0;i < weatherResult.cnt; i++) { %>
-                <th><%= new Date(weatherResult.list[i].dt * 1000) %></th>
-              <% } %>
-            </thead>  
-            <tbody>
-              <tr>
-                <% for (var i = 0;i < weatherResult.cnt; i++) { %>
-                      <td>
-                         <%= weatherResult.list[i].weather[0].main%> - <%= weatherResult.list[i].weather[0].description %><br/>
-                         <%= weatherResult.list[i].main.temp %> &#8451;<br/>
-                         Max <%= weatherResult.list[i].main.temp_max %> &#8451; - Min <%= weatherResult.list[i].main.temp_min %> &#8451;<br/>
-                       </td>
-                <% } %>
-               </tr>
-            </tbody>
-          </table>
-        <% } %>
-        <% if(error !== null){ %>
-          <p><%= error %></p>
-        <% } %>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+          <image src="./images/siteLogo.png" style="height:50px;width:50px;float:left;margin:0px 20px 0px 0px"></image>
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target=".navbar-collapse">
+                  <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                      class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Current Weather</a>
+              <a class="navbar-brand" style="color:white" href="/fiveDaysForecast">5 Days Forecast</a>
+              <a class="navbar-brand"  href="/UV">Current UV Level</a>
+          </div>
+         <!--  <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  <li id="home"><a href="/">Home</a></li>
+                  <li id="about"><a href="/about">About</a></li>
+              </ul>
+          </div> -->
+          <!--/.navbar-collapse -->
+      </div>
+    </div>
 
+    <div class="container">
+      <div class="row">
+        &nbsp;
+      </div>
+      <div class="row">
+        &nbsp;
+      </div>
+        <div class="row">
+          <div class="col-md-1">
+            &nbsp;
+          </div>
+          <div class="col-md-10">
+            <% if(weatherResult !== null){ %>
+              <h1><%= weatherResult.city.name %></h1>
+              <div id="forecastNavi">
+                <button class="prevbutton" Id="prevbutton" style="vertical-align:middle"><span>Prev 24 hrs </span></button>
+                <button class="nextbutton" id="nextbutton" style="vertical-align:middle"><span>Next 24 hrs </span></button>
+              <div>
+              <% for (var i = 1;i < 6; i++) { %>
+                <% if (i === 1) { %>
+                  <table id="<%= 'tbforecast' + i%>">
+                <% }else{ %>
+                  <table id="<%= 'tbforecast' + i%>" style="display: none;">
+                <% } %>
+                    <thead>
+                      <% for (var j = (i-1)*8;j < i * 8 && j < 39; j++) { %>
+                        <th><%= moment.unix(weatherResult.list[j].dt).format("LLLL") %></th>
+                      <% } %>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <% for (var k = (i-1)*8;k < i * 8 && k < 39; k++) { %>
+                              <td>
+                                 <image class="weatherConditionClass" alt="<%= weatherResult.list[k].weather[0].main%> - <%= weatherResult.list[k].weather[0].description %>" src="/images/weatherconditions/<%=weatherResult.list[k].weather[0].icon%>.png" />
+                                 <%= weatherResult.list[k].main.temp %> &#8451;<br/>
+                                 <%= weatherResult.list[k].main.temp_max %> &#8451; - <%= weatherResult.list[k].main.temp_min %> &#8451;<br/>
+                               </td>
+                        <% } %>
+                       </tr>
+                    </tbody>
+                  </table>
+              <% } %>
+            <% } %>
+            <% if(error !== null){ %>
+              <p><%= error %></p>
+            <% } %>
+        </div>
+        <div class="col-md-1">
+            &nbsp;
+        </div>
+      </div>
     </div>
   </body>
+   <nav class="navbar navbar-inverse  navbar-fixed-bottom" role="navigation">
+      <div class="container text-center">
+          <p class="col-md-12 col-sm-12 col-xs-12" style="color:white; background:none; font-size:10px">© Longicorn Technologies 2017</p>
+      </div>
+  </nav>
 </html>
